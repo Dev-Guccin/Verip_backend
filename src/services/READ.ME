@@ -1,0 +1,7 @@
+코드를 express.js router에서 분리하십시오.
+
+service 레이어에는 req와 res 객체를 전달하지 마십시오.
+
+상태 코드 또는 헤더와 같은 HTTP 전송 계층과 관련된 것들은 반환하지 마십시오.
+
+예시 : https://github.com/santiq/bulletproof-nodejs/blob/master/src/services/auth.ts
