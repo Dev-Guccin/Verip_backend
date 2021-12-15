@@ -5,7 +5,6 @@ import 'module-alias/register'
 import bodyParser from 'body-parser'
 import 'reflect-metadata'
 import loader from '@src/loader'
-import api from './api'
 import { start } from 'repl'
 
 async function startServer() {
