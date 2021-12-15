@@ -12,5 +12,8 @@ export default class UserService {
     const userRecord = 'test'
     const companyRecord = 'company'
     return { user: userRecord, company: companyRecord }
+    this.test('string')
   }
+
+  test(param: string) {}
 }

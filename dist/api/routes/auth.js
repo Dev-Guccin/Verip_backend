@@ -8,25 +8,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-//import middlewares from '../middlewares'
-const users_1 = __importDefault(require("../../services/users"));
 const route = (0, express_1.Router)();
 exports.default = (app) => {
-    app.use('/users', route);
-    route.get('/test', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-        // The actual responsability of the route layer.
-        console.log('testest');
-        const userDTO = req.body;
-        // Call to service layer.
-        // Abstraction on how to access the data layer and the business logic.
-        let US = new users_1.default();
-        const { user, company } = yield US.Signup(userDTO);
-        // Return a response to client.
-        return res.json({ user, company });
+    app.use('/auth', route);
+    route.post('/signup', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        res.send('auth');
     }));
 };

@@ -1,11 +1,14 @@
 import { Router, Request, Response } from 'express'
 //import middlewares from '../middlewares'
 import UserService from '../../services/users'
+
 const route = Router()
 
 export default (app: Router) => {
-  route.get('/test', async (req: Request, res: Response) => {
+  app.use('/users', route) //  
+  route.get('/', async (req: Request, res: Response) => {
     // The actual responsability of the route layer.
+    console.log('testest')
     const userDTO = req.body
 
     // Call to service layer.

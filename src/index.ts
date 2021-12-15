@@ -1,15 +1,35 @@
 import express from 'express' // 1
-const app = express()
+import bodyParser from 'body-parser'
 
-import usersRouter from './api/routes/user'
+const app: express.Application = express()
 
-app.get('/', (req: express.Request, res: express.Response) => {
-  // 2
-  res.send('Hello World!')
-})
+import api from './api'
+
+app.use(bodyParser.json())
+
+// add router
+app.use('/api', api())
+
+app.post(
+  '/',
+  (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    // 2
+    console.log('test')
+    console.log(req.body)
+    res.send('Hello World!')
+  }
+)
+app.get(
+  '/:id/test',
+  (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    // 2
+    console.log('test')
+    console.log(req.params)
+    console.log(req.query)
+    res.send('Hello World!')
+  }
+)
 
 app.listen(3000, () => {
   console.log('Example app listening on port 3000!')
 })
-
-app.use('/users', usersRouter)

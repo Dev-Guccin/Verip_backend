@@ -21,7 +21,9 @@ class UserService {
             const userRecord = 'test';
             const companyRecord = 'company';
             return { user: userRecord, company: companyRecord };
+            this.test('string');
         });
     }
+    test(param) { }
 }
 exports.default = UserService;
