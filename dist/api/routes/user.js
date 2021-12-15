@@ -17,8 +17,8 @@ const express_1 = require("express");
 const users_1 = __importDefault(require("../../services/users"));
 const route = (0, express_1.Router)();
 exports.default = (app) => {
-    app.use('/users', route);
-    route.get('/test', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    app.use('/users', route); //  
+    route.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         // The actual responsability of the route layer.
         console.log('testest');
         const userDTO = req.body;

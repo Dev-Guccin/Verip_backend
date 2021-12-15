@@ -1,4 +1,5 @@
 import express from 'express' // 1
+import 'module-alias/register'
 import bodyParser from 'body-parser'
 import 'reflect-metadata'
 
