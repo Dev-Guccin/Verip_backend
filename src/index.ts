@@ -1,5 +1,6 @@
 import express from 'express' // 1
 import bodyParser from 'body-parser'
+import 'reflect-metadata'
 
 const app: express.Application = express()
 
