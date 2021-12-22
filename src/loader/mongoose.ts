@@ -1,7 +1,8 @@
 import mongoose from 'mongoose'
-import config from '../config'
+import { Db } from 'mongodb'
+import config from '@src/config'
 
-export default async (): Promise<any> => {
+export default async (): Promise<Db> => {
   const connection = await mongoose.connect(config.databaseURL)
   return connection.connection.db
 }
