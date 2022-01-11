@@ -18,4 +18,5 @@ async function startServer() {
     console.log(`Example app listening on port ${config.port}!🚀`)
   })
 }
+console.log(config)
 startServer()

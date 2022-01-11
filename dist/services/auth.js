@@ -17,25 +17,42 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthService = void 0;
 require("reflect-metadata");
 const typedi_1 = require("typedi");
 const crypto_1 = require("crypto");
+const User_1 = __importDefault(require("@src/models/User"));
+// 서비스로 type을 설정하여 자동으로 typedi의 Container에 삽입한다.
+// 다른곳에서 Container.get(AuthService)로 받아올 수 있다. 문자열로도 선언 가능함.
 let AuthService = class AuthService {
     constructor() {
         console.log('AuthService constructor');
     }
-    signUp(userid, password) {
+    signUp(userId, email, password) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const salt = (0, crypto_1.randomBytes)(32);
+                const salt = (0, crypto_1.randomBytes)(32).toString('base64');
+                const hashPassword = (0, crypto_1.createHash)('sha512')
+                    .update(password + salt)
+                    .digest('hex'); //  결과를 hex값으로 바꾼다
                 console.log('salt:', salt);
-                return salt;
+                console.log('hashPassword:', hashPassword);
+                const res = yield User_1.default.create({
+                    userId: userId,
+                    email: email,
+                    pw: hashPassword,
+                });
+                console.log(res);
+                return true;
             }
             catch (e) {
-                console.log('err:', e);
                 throw e; // 에러 터뜨리고 종료
+                console.log('err:', e);
+                return false;
             }
         });
     }

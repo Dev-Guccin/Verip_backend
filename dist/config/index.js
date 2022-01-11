@@ -19,7 +19,7 @@ exports.default = {
     /**
      * That long string from mlab
      */
-    databaseURL: process.env.MONGODB_URI,
+    databaseURL: String(process.env.MONGODB_URI),
     /**
      * Your secret sauce
      */
@@ -34,11 +34,11 @@ exports.default = {
     /**
      * Agenda.js stuff
      */
-    //   agenda: {
-    //     dbCollection: process.env.AGENDA_DB_COLLECTION,
-    //     pooltime: process.env.AGENDA_POOL_TIME,
-    //     concurrency: parseInt(process.env.AGENDA_CONCURRENCY, 10),
-    //   },
+    // agenda: {
+    //   dbCollection: process.env.AGENDA_DB_COLLECTION,
+    //   pooltime: process.env.AGENDA_POOL_TIME,
+    //   concurrency: parseInt(process.env.AGENDA_CONCURRENCY, 10),
+    // },
     /**
      * Agendash config
      */
