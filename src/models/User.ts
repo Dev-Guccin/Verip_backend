@@ -1,10 +1,11 @@
-import { Schema, model } from 'mongoose'
+import { Schema, model } from "mongoose"
 
 // 1. Create an interface representing a document in MongoDB
 interface User {
   userId: string
   email: string
   pw: string
+  fileName: string
 }
 // 2. Create a Schema corresponding to the document interface
 const UserSchema = new Schema<User>({
@@ -23,7 +24,11 @@ const UserSchema = new Schema<User>({
     type: String,
     required: true,
   },
+  fileName: {
+    type: String,
+    requied: true,
+  },
 })
 
 // 3. create a Model and export the Model
-export default model<User>('User', UserSchema)
+export default model<User>("User", UserSchema)
