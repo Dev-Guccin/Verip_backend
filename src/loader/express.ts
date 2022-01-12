@@ -2,7 +2,7 @@
 import * as express from 'express'
 import * as bodyParser from 'body-parser'
 //import * as cors from 'cors';
-import api from '@src/api'
+import api from '../api'
 
 export default async ({ app }: { app: express.Application }) => {
   app.use(bodyParser.json())

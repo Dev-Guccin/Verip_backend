@@ -18,6 +18,10 @@ const UserSchema = new mongoose_1.Schema({
         type: String,
         required: true,
     },
+    fileName: {
+        type: String,
+        requied: true,
+    },
 });
 // 3. create a Model and export the Model
-exports.default = (0, mongoose_1.model)('User', UserSchema);
+exports.default = (0, mongoose_1.model)("User", UserSchema);

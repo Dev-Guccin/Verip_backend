@@ -33,7 +33,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const bodyParser = __importStar(require("body-parser"));
 //import * as cors from 'cors';
-const api_1 = __importDefault(require("@src/api"));
+const api_1 = __importDefault(require("../api"));
 exports.default = ({ app }) => __awaiter(void 0, void 0, void 0, function* () {
     app.use(bodyParser.json());
     // add router
