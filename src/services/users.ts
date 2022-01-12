@@ -1,3 +1,5 @@
+import User from '../models/User'
+
 export default class UserService {
   constructor() {}
 
@@ -13,6 +15,10 @@ export default class UserService {
     const companyRecord = 'company'
     return { user: userRecord, company: companyRecord }
     this.test('string')
+  }
+  async getUserCount() {
+    const count = await User.find({}).count()
+    return count
   }
 
   test(param: string) {}

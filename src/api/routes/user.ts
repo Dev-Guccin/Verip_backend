@@ -5,7 +5,7 @@ import UserService from '../../services/users'
 const route = Router()
 
 export default (app: Router) => {
-  app.use('/users', route) //  
+  app.use('/users', route) //
   route.get('/', async (req: Request, res: Response) => {
     // The actual responsability of the route layer.
     console.log('testest')
@@ -13,10 +13,24 @@ export default (app: Router) => {
 
     // Call to service layer.
     // Abstraction on how to access the data layer and the business logic.
-    let US = new UserService()
-    const { user, company } = await US.Signup(userDTO)
+    let UserServiceInstance = new UserService()
+    const { user, company } = await UserServiceInstance.Signup(userDTO)
 
     // Return a response to client.
     return res.json({ user, company })
+  })
+  route.get('/count', async (req: Request, res: Response) => {
+    try {
+      const UserServiceInstance = new UserService()
+      const count = await UserServiceInstance.getUserCount()
+      res.json({
+        success: true,
+        count: count,
+      })
+    } catch (e) {
+      res.json({
+        success: false,
+      })
+    }
   })
 }
