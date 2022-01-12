@@ -4,7 +4,7 @@ import config from './config'
 import 'module-alias/register'
 import bodyParser from 'body-parser'
 import 'reflect-metadata'
-import loader from '@src/loader'
+import loader from './loader'
 import { start } from 'repl'
 
 async function startServer() {
@@ -13,7 +13,6 @@ async function startServer() {
 
   // loader를 이용하여 서버 mongodb연동과 express설정을 시작한다.
   await loader(app)
-
   app.listen(config.port, () => {
     console.log(`Example app listening on port ${config.port}!🚀`)
   })
