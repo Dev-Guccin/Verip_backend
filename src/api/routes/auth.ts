@@ -73,7 +73,20 @@ export default async (app: Router) => {
 
     // 컨테이너에서 인스턴스를 뽑아온다.
     const AuthServiceInstance: AuthService = Container.get(AuthService)
-
+    if ((await AuthServiceInstance.checkEmail(email)) != null) {
+      res.json({
+        success: false,
+        message: 'email is already exist',
+      })
+      return
+    }
+    if ((await AuthServiceInstance.checkId(id)) != null) {
+      res.json({
+        success: false,
+        message: 'userid is already exist',
+      })
+      return
+    }
     // 실행과 동시에 값을 확인한다.
     if (await AuthServiceInstance.signUp(email, password, id, filename)) {
       res.json({
