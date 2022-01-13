@@ -49,6 +49,19 @@ export default async (app: Router) => {
       })
     }
   })
+  route.post('/exist-id', async (req: Request, res: Response) => {
+    const AuthServiceInstance: AuthService = Container.get(AuthService)
+    const userId = req.body.userId
+    if ((await AuthServiceInstance.checkId(userId)) != null) {
+      res.json({
+        success: true,
+      })
+    } else {
+      res.json({
+        success: false,
+      })
+    }
+  })
 
   route.post('/signup', async (req: Request, res: Response) => {
     console.log('[+] singup')

@@ -40,9 +40,16 @@ export class AuthService {
     }
   }
   public async checkEmail(email: string) {
-    // 이메일이 디비에 저자되어 있는지 판단한다.
+    // 이메일이 디비에 저장되어 있는지 판단한다.
     const res = await User.findOne({
       email: email,
+    })
+    return res
+  }
+  public async checkId(userId: string) {
+    // 이메일이 디비에 저장되어 있는지 판단한다.
+    const res = await User.findOne({
+      userId: userId,
     })
     return res
   }
