@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose"
+import { Schema, model, Date } from 'mongoose'
 
 // 1. Create an interface representing a document in MongoDB
 interface User {
@@ -6,6 +6,7 @@ interface User {
   email: string
   pw: string
   fileName: string
+  regdate: Date
 }
 // 2. Create a Schema corresponding to the document interface
 const UserSchema = new Schema<User>({
@@ -28,7 +29,12 @@ const UserSchema = new Schema<User>({
     type: String,
     requied: true,
   },
+  regdate: {
+    type: Date,
+    required: true,
+    default: () => new Date(),
+  },
 })
 
 // 3. create a Model and export the Model
-export default model<User>("User", UserSchema)
+export default model<User>('User', UserSchema)
