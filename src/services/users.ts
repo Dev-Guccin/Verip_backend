@@ -1,4 +1,4 @@
-import User from '../models/User'
+import User from "../models/User"
 
 export default class UserService {
   constructor() {}
@@ -11,13 +11,23 @@ export default class UserService {
     //await EmailService.startSignupSequence(userRecord)
 
     //...do more stuff
-    const userRecord = 'test'
-    const companyRecord = 'company'
+    const userRecord = "test"
+    const companyRecord = "company"
     return { user: userRecord, company: companyRecord }
-    this.test('string')
+    this.test("string")
   }
   async getUserCount() {
     const count = await User.find({}).count()
+    console.log(count)
+    return count
+  }
+  async getUserCountToday() {
+    const count = await User.find({
+      regdate: {
+        $gte: new Date("2022-01-15"),
+      },
+    }).count()
+    console.log("day count:", count)
     return count
   }
 
