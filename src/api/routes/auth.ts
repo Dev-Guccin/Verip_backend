@@ -1,19 +1,19 @@
-import { Router, Request, Response } from "express"
-import Container, { Service, Inject } from "typedi"
-import { AuthService } from "../../services/auth"
+import { Router, Request, Response } from 'express'
+import Container, { Service, Inject } from 'typedi'
+import { AuthService } from '../../services/auth'
 
 const route = Router()
 
-import multer from "multer"
-import sharp from "sharp"
-import fs from "fs"
-import path from "path"
-import { v4 as uuid } from "uuid"
-import { exit } from "process"
+import multer from 'multer'
+import sharp from 'sharp'
+import fs from 'fs'
+import path from 'path'
+import { v4 as uuid } from 'uuid'
+import { exit } from 'process'
 
-fs.readdir("uploads", (err) => {
+fs.readdir('uploads', (err) => {
   if (err) {
-    fs.mkdirSync("uploads")
+    fs.mkdirSync('uploads')
   }
 })
 
@@ -21,7 +21,7 @@ const upload = multer({
   storage: multer.diskStorage({
     // 파일이 저장될 경로
     destination(req, file, cb) {
-      cb(null, "uploads/")
+      cb(null, 'uploads/')
     },
     filename(req, file, cb) {
       const ext = path.extname(file.originalname) // 파일 확장자
@@ -35,9 +35,9 @@ const upload = multer({
 })
 
 export default async (app: Router) => {
-  app.use("/auth", route)
+  app.use('/auth', route)
 
-  route.post("/exist-email", async (req: Request, res: Response) => {
+  route.post('/exist-email', async (req: Request, res: Response) => {
     const AuthServiceInstance: AuthService = Container.get(AuthService)
     const email = req.body.email
     if ((await AuthServiceInstance.isEmailExist(email)) != null) {
@@ -50,7 +50,7 @@ export default async (app: Router) => {
       })
     }
   })
-  route.post("/exist-id", async (req: Request, res: Response) => {
+  route.post('/exist-id', async (req: Request, res: Response) => {
     const AuthServiceInstance: AuthService = Container.get(AuthService)
     const userId = req.body.userId
     if ((await AuthServiceInstance.checkId(userId)) != null) {
@@ -64,8 +64,8 @@ export default async (app: Router) => {
     }
   })
 
-  route.post("/signup", async (req: Request, res: Response) => {
-    console.log("[+] singup")
+  route.post('/signup', async (req: Request, res: Response) => {
+    console.log('[+] singup')
     console.log(req.body)
     const email = req.body.email
     const password = req.body.password
@@ -77,19 +77,19 @@ export default async (app: Router) => {
     if (!(await AuthServiceInstance.checkEmailExpression(email))) {
       return res.json({
         success: false,
-        message: "email Expression is wrong",
+        message: 'email Expression is wrong',
       })
     }
     if (!(await AuthServiceInstance.checkUserIdExpression(userId))) {
       return res.json({
         success: false,
-        message: "userId Expression is wrong",
+        message: 'userId Expression is wrong',
       })
     }
     if (!(await AuthServiceInstance.checkPasswordExpression(password))) {
       return res.json({
         success: false,
-        message: "password Expression is wrong",
+        message: 'password Expression is wrong',
       })
     }
 
@@ -97,13 +97,13 @@ export default async (app: Router) => {
     if ((await AuthServiceInstance.isEmailExist(email)) != null) {
       return res.json({
         success: false,
-        message: "email is already exist",
+        message: 'email is already exist',
       })
     }
     if ((await AuthServiceInstance.checkId(userId)) != null) {
       return res.json({
         success: false,
-        message: "userid is already exist",
+        message: 'userid is already exist',
       })
     }
     // 실행과 동시에 값을 확인한다.
@@ -117,7 +117,7 @@ export default async (app: Router) => {
       })
     }
   })
-  route.post("/upload", upload.single("image"), (req: any, res) => {
+  route.post('/upload', upload.single('image'), (req: any, res) => {
     try {
       sharp(req.file.path) // 압축할 이미지 경로
         .resize({ width: 600 }) // 비율을 유지하며 가로 크기 줄이기

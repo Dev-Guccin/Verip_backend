@@ -47,13 +47,27 @@ exports.default = (app) => __awaiter(void 0, void 0, void 0, function* () {
     route.post('/exist-email', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const AuthServiceInstance = typedi_1.default.get(auth_1.AuthService);
         const email = req.body.email;
-        if ((yield AuthServiceInstance.checkEmail(email)) != null) {
-            res.json({
+        if ((yield AuthServiceInstance.isEmailExist(email)) != null) {
+            return res.json({
                 success: true,
             });
         }
         else {
-            res.json({
+            return res.json({
+                success: false,
+            });
+        }
+    }));
+    route.post('/exist-id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        const AuthServiceInstance = typedi_1.default.get(auth_1.AuthService);
+        const userId = req.body.userId;
+        if ((yield AuthServiceInstance.checkId(userId)) != null) {
+            return res.json({
+                success: true,
+            });
+        }
+        else {
+            return res.json({
                 success: false,
             });
         }
@@ -63,18 +77,49 @@ exports.default = (app) => __awaiter(void 0, void 0, void 0, function* () {
         console.log(req.body);
         const email = req.body.email;
         const password = req.body.password;
-        const id = req.body.id;
+        const userId = req.body.id;
         const filename = req.body.filename;
-        // 컨테이너에서 인스턴스를 뽑아온다.
         const AuthServiceInstance = typedi_1.default.get(auth_1.AuthService);
+        // 정규식 검증
+        if (!(yield AuthServiceInstance.checkEmailExpression(email))) {
+            return res.json({
+                success: false,
+                message: 'email Expression is wrong',
+            });
+        }
+        if (!(yield AuthServiceInstance.checkUserIdExpression(userId))) {
+            return res.json({
+                success: false,
+                message: 'userId Expression is wrong',
+            });
+        }
+        if (!(yield AuthServiceInstance.checkPasswordExpression(password))) {
+            return res.json({
+                success: false,
+                message: 'password Expression is wrong',
+            });
+        }
+        // 컨테이너에서 인스턴스를 뽑아온다.
+        if ((yield AuthServiceInstance.isEmailExist(email)) != null) {
+            return res.json({
+                success: false,
+                message: 'email is already exist',
+            });
+        }
+        if ((yield AuthServiceInstance.checkId(userId)) != null) {
+            return res.json({
+                success: false,
+                message: 'userid is already exist',
+            });
+        }
         // 실행과 동시에 값을 확인한다.
-        if (yield AuthServiceInstance.signUp(email, password, id, filename)) {
-            res.json({
+        if (yield AuthServiceInstance.signUp(email, password, userId, filename)) {
+            return res.json({
                 success: true,
             });
         }
         else {
-            res.json({
+            return res.json({
                 success: false,
             });
         }

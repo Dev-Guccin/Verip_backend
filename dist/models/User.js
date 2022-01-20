@@ -22,6 +22,11 @@ const UserSchema = new mongoose_1.Schema({
         type: String,
         requied: true,
     },
+    regdate: {
+        type: Date,
+        required: true,
+        default: () => new Date(),
+    },
 });
 // 3. create a Model and export the Model
-exports.default = (0, mongoose_1.model)("User", UserSchema);
+exports.default = (0, mongoose_1.model)('User', UserSchema);
